@@ -21,13 +21,17 @@ else()
 endif()
 
 # find Python3
+if (NOT PYTHON3_EXECUTABLE)
 find_package(Python3 COMPONENTS Interpreter ${DEVELOPMENT_COMPONENT} NumPy REQUIRED)
+endif()
+
+message("Python: ${PYTHON3_EXECUTABLE}")
 
 # find PDAL. Require 2.1+
 find_package(PDAL 2.7 REQUIRED)
 
-# find PyBind11
-find_package(pybind11 REQUIRED)
+# Add PyBind11
+add_subdirectory(pybind11)
 
 set(extension "libpdalpython")
 pybind11_add_module(${extension} MODULE
@@ -39,3 +43,4 @@ pybind11_add_module(${extension} MODULE
 target_include_directories(${extension} PRIVATE ${Python3_NumPy_INCLUDE_DIRS})
 target_link_libraries(${extension} PRIVATE ${PDAL_LIBRARIES})
 install(TARGETS ${extension} LIBRARY DESTINATION "pdal")
+install(FILES pdal/__init__.py pdal/pipeline.py pdal/drivers.py DESTINATION "pdal")
