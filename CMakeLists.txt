@@ -43,4 +43,4 @@ pybind11_add_module(${extension} MODULE
 target_include_directories(${extension} PRIVATE ${Python3_NumPy_INCLUDE_DIRS})
 target_link_libraries(${extension} PRIVATE ${PDAL_LIBRARIES})
 install(TARGETS ${extension} LIBRARY DESTINATION "pdal")
-install(FILES pdal/__init__.py pdal/pipeline.py pdal/drivers.py DESTINATION "pdal")
+install(FILES src/pdal/__init__.py src/pdal/pipeline.py src/pdal/drivers.py DESTINATION "pdal")
